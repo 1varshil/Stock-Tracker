@@ -1,0 +1,27 @@
+<div class="stock-tracker" [ngClass]="{'up': stockData?.d > 0, 'down': stockData?.d < 0}">
+    <h2>Stock Price Tracker</h2>
+    <input [(ngModel)]="stockSymbol" placeholder="Enter stock symbol" />
+    <button (click)="getStockPrice()">Get Price</button>
+
+    <div *ngIf="stockData" class="stock-details">
+        <h3>Stock Symbol: {{ stockSymbol }}</h3>
+        <p>Current Price: {{ stockData.c }}</p>
+        <p>Difference: {{ stockData.d }}</p>
+        <p>Open Price: {{ stockData.o }}</p>
+        <p>High Price: {{ stockData.h }}</p>
+        <p>Low Price: {{ stockData.l }}</p>
+    </div>
+
+    <!-- Chart Display -->
+    <div *ngIf="stockData" style="display: block;">
+        <canvas baseChart [data]="lineChartData" [type]="lineChartType" [options]="lineChartOptions">
+        </canvas>
+    </div>
+
+
+    <!-- Bar Chart Display -->
+    <div *ngIf="stockData" style="display: block;">
+        <canvas baseChart [data]="barChartData" [type]="barChartType" [options]="barChartOptions">
+        </canvas>
+    </div>
+</div>
